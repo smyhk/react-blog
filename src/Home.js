@@ -3,8 +3,7 @@ import BlogList from './BlogList';
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
-
-  const [name, setName] = useState('mario');
+  const [isPending, setIsPending] = useState(true);
 
   // Runs with every render
   useEffect(() => {
@@ -15,12 +14,14 @@ const Home = () => {
       .then((data) => {
         console.log(data);
         setBlogs(data);
+        setIsPending(false);
       });
   }, []);
 
   return (
     <div className="home">
       {/* conditional templating */}
+      {isPending && <div>Loading...</div>}
       {blogs && <BlogList blogs={blogs} title="All Blogs" />}
     </div>
   );
